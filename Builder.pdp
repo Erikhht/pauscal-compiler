@@ -14,7 +14,7 @@ lista = Nuevo pscArchivo
 lista.Nombre = RUTA_LISTA + "PrecompLista.lst"
 lista.Abrir()
 Mientras lista.FinDeArchivo = Falso
-	nombre = lista.LeerLinea()
+	nombre = lista.LeerL$EDnea()
 	Si CadLong(nombre) &gt; 0 Entonces
 		nombres = nombres + [nombre]
 	FinSi
@@ -33,15 +33,15 @@ Contar i = 0 a LongMat(nombres)-1
 		'Hay un bug en el editor Beta y el contenido puede estar desfasado en un byte.
 		'Dado que es complicado detectar el problema con 100% de seguridad, aplicamos esta heuristica
 		'que funciona en el 99,99% de los casos.
-		arch.Posicion = ptr-1
+		arch.Posici$F3n = ptr-1
 		arch.Leer(b@,1)
 		Si b &lt;&gt; 0 Entonces
-			arch.Posicion = ptr-1
+			arch.Posici$F3n = ptr-1
 		SiNo
-			arch.Posicion = ptr
+			arch.Posici$F3n = ptr
 		FinSi
 
-		contenido = arch.LeerCad(arch.Tamanio-arch.Posicion)
+		contenido = arch.LeerCad(arch.Tama$F1o-arch.Posici$F3n)
 		arch.Cerrar()
 		arch.CrearNuevo(Verd) 'Sobreescribimos el anterior
 		arch.EscribirCad(contenido)
@@ -49,7 +49,7 @@ Contar i = 0 a LongMat(nombres)-1
 	arch.Cerrar()
 	
 	AdmErr
-		nombre = QuitarExtension(nombres[i]) + ".prp"
+		nombre = QuitarExtensi$F3n(nombres[i]) + ".prp"
 		BorrarArchivo(nombre)
 	Controlar
 	FinAdmErr
@@ -57,4 +57,5 @@ Seguir
 
 Mensaje("Listo")
 
+Fin
 </Contenido></Datos>
