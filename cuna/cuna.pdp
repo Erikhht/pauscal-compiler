@@ -2,4 +2,65 @@
 'siguiendo el libro de Jack W. Crenshaw
 'En http://compilers.iecc.com/crenshaw/tutor1.txt
 
+'Declaraci$F3n de constante tabulador 
+Const TAB=#09
+
+'Declaracion de variable VER
+'como tipo byte
+Var VER: Byte
+
+Proc obtenerCar$E1cter
+'Leer un car$E1cter y almacenarlo en VER
+FinProc
+
+Proc error(cad:Cadena)
+'Mostrar error al usuario
+FinProc
+
+Proc abortar(cad:Cadena)
+'Reportar error y terminar programa
+FinProc
+
+Proc esperaba(cad:Cadena)
+'Reportar el(los) valor(es) esperado(s)
+FinProc
+
+Proc coincide(x:Byte)
+'Verificar si conicide el car$E1cter
+'con VER
+FinProc
+
+Proc esAlfa(car:Byte):Booleano
+'Verificar si es una letra
+FinProc
+
+Proc esDigito(car:Byte):Booleano
+'Verificar si es un n$FAmero
+FinProc
+
+Proc obtenerNombre():Byte
+'Obtener un identificador
+FinProc
+
+Proc obtenerN$FAmero():Byte
+'Obtener un n$FAmero
+FinProc
+
+Proc emitir(cad:Cadena)
+'Escribir cadena con tabulaci$F3n
+FinProc
+
+Proc emitirLn(cad:Cadena)
+'Escribir cadena con salto de l$EDnea
+FinProc
+
+Proc Inicializar
+'Inicializar programa
+FinProc
+
+'Punto de entrada a programa principal
+Inicializar()
+
+'Fin del programa
+Fin
 </Contenido></Datos>
