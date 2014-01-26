@@ -4,7 +4,7 @@
 Importar "secuencia.prp"
 
 'Declaraci$F3n de constante tabulador 
-Const TAB=#09
+Const TAB=#32#32#32#32
 
 Const CrLf = #13#10
 
@@ -98,7 +98,7 @@ FinProc
 Proc error(cad:Cadena)
 'Mostrar error al usuario
     escribirLn()
-    escribirLn("Error " + cad + ".")
+    escribirLn("Error: " + cad + ".")
 FinProc
 
 Proc abortar(cad:Cadena)
@@ -163,10 +163,14 @@ Proc emitirLn(cad:Cadena)
     escribirLn()
 FinProc
 
+Proc Expresi$F3n()
+    emitirLn("MOVE #" + Carac(obtenerN$FAmero) + ",D0")
+FinProc
+
 Proc Inicializar
 'Inicializar programa
 'Cargar programa
-sec = Nuevo cSecuencia([0,0,0,0,0])
+sec = Nuevo cSecuencia([65,0,0,0,0])
 
 'Inicializar matrices
 A_Z_65_90 = [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90]
@@ -175,7 +179,7 @@ d$EDgitos_48_57 = [48,49,50,51,52,53,54,55,56,57]
 
 'Obtener primer car$E1cter
 obtenerCar$E1cter()
-abortar("Prueba de mensaje")
+Expresi$F3n()
 FinProc
 
 'Punto de entrada a programa principal
