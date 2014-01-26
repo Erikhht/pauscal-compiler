@@ -27,6 +27,21 @@ Var Salida:Cadena
 'como tipo byte
 Var VER: Byte
 
+'Procedimiento de Sistema
+Proc MessageBox(:Entero,Referencia ,:Cadena,:Entero):Entero, "User32" "MessageBoxA"
+
+'MessageBoxA
+Const pscPregunta=32,pscExclamaci$F3n=48,pscCr$EDtico=16,pscInformaci$F3n=64
+Const pscAceptarSolo=0,pscAceptarCancelar=1,pscAbortarReintentarIgnorar=2,pscS$EDNoCancelar=3,pscS$EDNo=4,pscReintentarCancelar=5
+Const pscDef1=0,pscDef2=256,pscDef3=512
+Const pscModalPrograma=0,pscModalSistema=4096
+Const pscAceptar=1,pscCancelar=2,pscAbortar=3,pscReintentar=4,pscIgnorar=5,pscS$ED=6,pscNo=7
+
+
+Proc Mensaje(Texto:Cadena,Opcional Tipo:Entero, Opcional Titulo:Cadena="Pauscal", Opcional hWnd:Entero):Entero
+    Devolver MessageBox(0,Texto,Titulo,Tipo)
+FinProc
+
 Proc CadPtr(Referencia lpStr:Cadena):Entero
 'Obtener direcci$F3n de cadena
   Var @Dir:Entero
@@ -160,10 +175,14 @@ d$EDgitos_48_57 = [48,49,50,51,52,53,54,55,56,57]
 
 'Obtener primer car$E1cter
 obtenerCar$E1cter()
+abortar("Prueba de mensaje")
 FinProc
 
 'Punto de entrada a programa principal
 Inicializar()
+
+'Mensajes de salida
+Mensaje(Salida,pscInformaci$F3n+pscAceptarSolo+pscDef1+pscModalSistema+pscAceptar)
 
 'Fin del programa
 Fin
