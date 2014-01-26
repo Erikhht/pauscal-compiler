@@ -1,61 +1,165 @@
 <Datos><Nombre></Nombre><Icono>AA==</Icono><Version><Mayor>0</Mayor><Menor>0</Menor><Revision>0</Revision><AutoIncr>0</AutoIncr></Version><Info/><Contenido>'Este es el primer programa compilador 
 'siguiendo el libro de Jack W. Crenshaw
 'En http://compilers.iecc.com/crenshaw/tutor1.txt
+Importar "secuencia.prp"
 
 'Declaraci$F3n de constante tabulador 
 Const TAB=#09
+
+Const CrLf = #13#10
+
+'Matriz para contener los valores de la A-Z
+Var A_Z_65_90[]:Byte
+
+'Matriz para contener los valores de la a-z
+Var a_z_97_122[]:Byte
+
+'Matriz para contener los d$EDgitos 0-9
+Var d$EDgitos_48_57[]:Byte
+
+'Clase para manejo de secuencia de caracteres
+Var sec:cSecuencia
+
+'Variable para mostrar mensajes de Salida
+Var Salida:Cadena
 
 'Declaracion de variable VER
 'como tipo byte
 Var VER: Byte
 
+Proc CadPtr(Referencia lpStr:Cadena):Entero
+'Obtener direcci$F3n de cadena
+  Var @Dir:Entero
+  Dir@=lpStr@
+  Resultado=Dir
+FinProc
+
+Proc Carac(bByte:Byte):Cadena
+'Obtener car$E1cter de byte
+  Var Temp:Cadena, @Ptr:Byte
+  Temp="c"
+  Ptr@=CadPtr(Temp)
+  Ptr=bByte
+  Resultado=Temp
+FinProc
+
+Proc escribirLn(Opcional cad:Cadena = "" )
+'escribir en la variable de Salida
+'con nueva l$EDnea al final
+    Salida = Salida + cad + CrLf
+FinProc
+
+Proc escribir(Opcional cad:Cadena = "" )
+'Escribir en la variable de Salida
+    Salida = Salida + cad
+FinProc
+
+Proc carMay(car:Byte):Byte
+'Devolver caracter en may$FAscula
+    Si Car &gt;= 97 And Car &lt;= 122
+        Resultado = car - 32
+    SiNo
+        Resultado = car
+    FinSi
+FinProc
+
+Proc estaEn(car:Byte,mByte[]:Byte):Booleano
+'Verifica que el primer caracter este dentro de la matriz
+    Var i:Entero
+    Resultado = Falso
+    Contar i=0 A Long(mByte)-1
+        Si car = mByte[i]
+            Resultado = Verd
+            Salir
+        FinSi
+    Seguir
+FinProc
+
 Proc obtenerCar$E1cter
 'Leer un car$E1cter y almacenarlo en VER
+    VER = sec.leer()
 FinProc
 
 Proc error(cad:Cadena)
 'Mostrar error al usuario
+    escribirLn()
+    escribirLn("Error " + cad + ".")
 FinProc
 
 Proc abortar(cad:Cadena)
 'Reportar error y terminar programa
+    error(cad)
+'PorHacer: Terminar la ejecuci$F3n 
+'          del programa en la sig. l$EDnea
+    'Fin
 FinProc
 
 Proc esperaba(cad:Cadena)
 'Reportar el(los) valor(es) esperado(s)
+    abortar( "Se esperaba " + cad )
 FinProc
 
 Proc coincide(x:Byte)
 'Verificar si conicide el car$E1cter
 'con VER
+    Si VER = x Entonces
+        obtenerCar$E1cter()
+    SiNo
+        esperaba( "'" + Carac(x) + "'" )
+    FinSi
 FinProc
 
 Proc esAlfa(car:Byte):Booleano
 'Verificar si es una letra
+    Resultado = estaEn(carMay(car),A_Z_65_90)
 FinProc
 
-Proc esDigito(car:Byte):Booleano
+Proc esD$EDgito(car:Byte):Booleano
 'Verificar si es un n$FAmero
+    Resultado = estaEn(car,d$EDgitos_48_57)
 FinProc
 
 Proc obtenerNombre():Byte
 'Obtener un identificador
+    Si Not esAlfa(VER) Entonces
+        esperaba("Nombre")
+    FinSi
+    Resultado = carMay(VER)
+    obtenerCar$E1cter()
 FinProc
 
 Proc obtenerN$FAmero():Byte
 'Obtener un n$FAmero
+    Si Not esD$EDgito(VER) Entonces
+        esperaba("D$EDgito")
+    FinSi
+    Resultado = VER
+    obtenerCar$E1cter()
 FinProc
 
 Proc emitir(cad:Cadena)
 'Escribir cadena con tabulaci$F3n
+    escribir( TAB + cad )
 FinProc
 
 Proc emitirLn(cad:Cadena)
 'Escribir cadena con salto de l$EDnea
+    emitir(cad)
+    escribirLn()
 FinProc
 
 Proc Inicializar
 'Inicializar programa
+'Cargar programa
+sec = Nuevo cSecuencia([0,0,0,0,0])
+
+'Inicializar matrices
+A_Z_65_90 = [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90]
+a_z_97_122 = [97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122]
+d$EDgitos_48_57 = [48,49,50,51,52,53,54,55,56,57]
+
+'Obtener primer car$E1cter
+obtenerCar$E1cter()
 FinProc
 
 'Punto de entrada a programa principal

@@ -1,0 +1,19 @@
+<Datos><Nombre></Nombre><Icono>AA==</Icono><Version><Mayor>0</Mayor><Menor>0</Menor><Revision>0</Revision><AutoIncr>0</AutoIncr></Version><Info/><Contenido>'Manejo de secuencia de bytes
+
+Clase cSecuencia
+ClaseVar ind$EDce:Entero
+ClaseVar matriz[]:Byte
+P$FAblico:
+    Proc inicializar(mByte[]:Byte)
+        ind$EDce = 0
+        matriz = mByte
+    FinProc
+
+    Proc leer():Byte
+        Resultado = matriz[ind$EDce]
+        ind$EDce = ind$EDce + 1
+    FinProc
+
+    Constructor: inicializar
+FinClase
+</Contenido></Datos>

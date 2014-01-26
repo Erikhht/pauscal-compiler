@@ -216,3 +216,6 @@ pip-log.txt
 
 #Pauscal installation
 Pauscal/
+
+#Pauscal precompilado
+*.prp
