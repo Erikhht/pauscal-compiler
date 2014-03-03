@@ -150,6 +150,7 @@ Proc sustracci$F3n
     coincide(RESTA)'-
     t$E9rmino()
     emitirLn("SUB D1,D0")
+    emitirLn("NEG D0")
 FinProc
 
 Proc Expresi$F3n()
@@ -174,7 +175,7 @@ a_z_97_122 = [97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,1
 d$EDgitos_48_57 = [48,49,50,51,52,53,54,55,56,57]
 
 'Cargar programa
-sec = Nuevo cSecuenciaDeCadena("1+2")
+sec = Nuevo cSecuenciaDeCadena("1-2")
 
 'Obtener primer car$E1cter
 obtenerCar$E1cter()
