@@ -1,0 +1,117 @@
+<Datos><Nombre></Nombre><Icono>AA==</Icono><Version><Mayor>0</Mayor><Menor>0</Menor><Revision>0</Revision><AutoIncr>0</AutoIncr></Version><Info/><Contenido>'Procedimiento de Sistema
+Proc MessageBox(:Entero,Referencia ,:Cadena,:Entero):Entero, "User32" "MessageBoxA"
+Proc CopyMemory(lpDest,lpSrc,dwBytes:Entero), "Kernel32" "RtlMoveMemory"
+
+'MessageBoxA
+Const pscPregunta=32,pscExclamaci$F3n=48,pscCr$EDtico=16,pscInformaci$F3n=64
+Const pscAceptarSolo=0,pscAceptarCancelar=1,pscAbortarReintentarIgnorar=2,pscS$EDNoCancelar=3,pscS$EDNo=4,pscReintentarCancelar=5
+Const pscDef1=0,pscDef2=256,pscDef3=512
+Const pscModalPrograma=0,pscModalSistema=4096
+Const pscAceptar=1,pscCancelar=2,pscAbortar=3,pscReintentar=4,pscIgnorar=5,pscS$ED=6,pscNo=7
+
+
+Proc Mensaje(Texto:Cadena,Opcional Tipo:Entero, Opcional Titulo:Cadena="Pauscal", Opcional hWnd:Entero):Entero
+    Devolver MessageBox(0,Texto,Titulo,Tipo)
+FinProc
+
+Proc CadPtr(Referencia lpStr:Cadena):Entero
+'Obtener direcci$F3n de cadena
+  Var @Dir:Entero
+  Dir@=lpStr@
+  Resultado=Dir
+FinProc
+
+Proc Carac(bByte:Byte):Cadena
+'Obtener car$E1cter de byte
+  Var Temp:Cadena, @Ptr:Byte
+  Temp="c"
+  Ptr@=CadPtr(Temp)
+  Ptr=bByte
+  Resultado=Temp
+FinProc
+
+Proc CadLong(Referencia lpStr:Cadena):Entero
+  Var @Ptr,Ret:Entero
+
+  Ret=CadPtr(lpStr)
+  Si (Ret=0) Salir
+  Ptr@=Ret-4
+  Resultado=Ptr
+FinProc
+
+Privado:
+Estruc ArregloDeByte, Arreglo[]:Byte
+P$FAblico:
+Proc RepCarac(bByte:Byte,dwRep:Entero):Cadena
+	Var Bufer:ArregloDeByte
+	Var @Ret:Cadena
+	Var i, @Limpiador:Entero
+	
+	Redim Bufer.Arreglo,dwRep
+	Contar i = 1 a dwRep
+		Bufer.Arreglo[i-1] = bByte
+	Seguir
+	
+	Ret@ = Bufer@
+	Limpiador@ = Bufer@
+	Resultado = Ret
+	Limpiador = 0
+FinProc
+
+Proc CadenaDeMatrizByte(ByteAry[]:Byte):Cadena
+  Var Temp:Cadena, LenTxt:EnteroSig
+  LenTxt=LongMat(ByteAry)
+  Si LenTxt&lt;1 Salir
+  Temp=RepCarac(0,LenTxt)
+  CopyMemory(CadPtr(Temp),ByteAry[0]@,LenTxt)
+  Resultado=Temp
+FinProc
+
+Proc MatrizByteDeCadena(Txt:Cadena):Byte[]
+  Var LenTxt:EnteroSig
+  Var ByteAry[]:Byte
+  LenTxt=CadLong(Txt)
+  Si LenTxt&lt;1 Salir
+  Redim ByteAry,LenTxt
+  CopyMemory(ByteAry[0]@,CadPtr(Txt),LenTxt)
+  Resultado=ByteAry
+FinProc
+
+
+
+'Manejo de secuencia de bytes
+
+Clase cSecuencia
+ClaseVar ind$EDce:Entero
+ClaseVar matriz[]:Byte
+P$FAblico:
+    Proc inicializar(mByte[]:Byte)
+        ind$EDce = 0
+        matriz = mByte
+    FinProc
+
+    Proc leer():Byte
+        Resultado = matriz[ind$EDce]
+        ind$EDce = ind$EDce + 1
+    FinProc
+
+    Constructor: inicializar
+FinClase
+
+Clase cSecuenciaDeCadena
+ClaseVar ind$EDce:Entero
+ClaseVar matriz[]:Byte
+P$FAblico:
+    Proc inicializar(c$F3digo:Cadena)
+        ind$EDce = 0
+        matriz = MatrizByteDeCadena(c$F3digo)
+    FinProc
+
+    Proc leer():Byte
+        Resultado = matriz[ind$EDce]
+        ind$EDce = ind$EDce + 1
+    FinProc
+
+    Constructor: inicializar
+FinClase
+</Contenido></Datos>

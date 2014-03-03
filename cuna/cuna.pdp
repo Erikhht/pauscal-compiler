@@ -1,7 +1,7 @@
 <Datos><Nombre></Nombre><Icono>AA==</Icono><Version><Mayor>0</Mayor><Menor>0</Menor><Revision>0</Revision><AutoIncr>0</AutoIncr></Version><Info/><Contenido>'Este es el primer programa compilador 
 'siguiendo el libro de Jack W. Crenshaw
 'En http://compilers.iecc.com/crenshaw/tutor1.txt
-Importar "secuencia.prp"
+Importar "herramientas.prp"
 
 'Declaraci$F3n de constante tabulador 
 Const TAB=#32#32#32#32
@@ -28,37 +28,6 @@ Var Salida:Cadena
 'Declaracion de variable VER
 'como tipo byte
 Var VER: Byte
-
-'Procedimiento de Sistema
-Proc MessageBox(:Entero,Referencia ,:Cadena,:Entero):Entero, "User32" "MessageBoxA"
-
-'MessageBoxA
-Const pscPregunta=32,pscExclamaci$F3n=48,pscCr$EDtico=16,pscInformaci$F3n=64
-Const pscAceptarSolo=0,pscAceptarCancelar=1,pscAbortarReintentarIgnorar=2,pscS$EDNoCancelar=3,pscS$EDNo=4,pscReintentarCancelar=5
-Const pscDef1=0,pscDef2=256,pscDef3=512
-Const pscModalPrograma=0,pscModalSistema=4096
-Const pscAceptar=1,pscCancelar=2,pscAbortar=3,pscReintentar=4,pscIgnorar=5,pscS$ED=6,pscNo=7
-
-
-Proc Mensaje(Texto:Cadena,Opcional Tipo:Entero, Opcional Titulo:Cadena="Pauscal", Opcional hWnd:Entero):Entero
-    Devolver MessageBox(0,Texto,Titulo,Tipo)
-FinProc
-
-Proc CadPtr(Referencia lpStr:Cadena):Entero
-'Obtener direcci$F3n de cadena
-  Var @Dir:Entero
-  Dir@=lpStr@
-  Resultado=Dir
-FinProc
-
-Proc Carac(bByte:Byte):Cadena
-'Obtener car$E1cter de byte
-  Var Temp:Cadena, @Ptr:Byte
-  Temp="c"
-  Ptr@=CadPtr(Temp)
-  Ptr=bByte
-  Resultado=Temp
-FinProc
 
 Proc escribirLn(Opcional cad:Cadena = "" )
 'escribir en la variable de Salida
