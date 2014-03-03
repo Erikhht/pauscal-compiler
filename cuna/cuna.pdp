@@ -5,6 +5,8 @@ Importar "secuencia.prp"
 
 'Declaraci$F3n de constante tabulador 
 Const TAB=#32#32#32#32
+Const SUMA=43
+Const RESTA=45
 
 Const CrLf = #13#10
 
@@ -163,19 +165,47 @@ Proc emitirLn(cad:Cadena)
     escribirLn()
 FinProc
 
-Proc Expresi$F3n()
+Proc t$E9rmino()
     emitirLn("MOVE #" + Carac(obtenerN$FAmero) + ",D0")
+FinProc
+
+Proc adici$F3n
+'Reconocer y traducir adici$F3n
+    coincide(SUMA)'+
+    t$E9rmino()
+    emitirLn("ADD D1,D0")
+FinProc
+
+Proc sustracci$F3n
+'Reconocer y traducir sustracci$F3n
+    coincide(RESTA)'-
+    t$E9rmino()
+    emitirLn("SUB D1,D0")
+FinProc
+
+Proc Expresi$F3n()
+'Leer y traducir expresi$F3n
+    t$E9rmino()
+    emitirLn("MOVE D0,D1")
+    Seleccionar VER
+        Caso SUMA
+	         adici$F3n()
+        Caso RESTA
+	         sustracci$F3n()
+        Caso Otro
+            esperaba("Operaci$F3n de adici$F3n")
+    FinSeleccionar
 FinProc
 
 Proc Inicializar
 'Inicializar programa
-'Cargar programa
-sec = Nuevo cSecuencia([65,0,0,0,0])
-
 'Inicializar matrices
 A_Z_65_90 = [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90]
 a_z_97_122 = [97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122]
 d$EDgitos_48_57 = [48,49,50,51,52,53,54,55,56,57]
+
+'Cargar programa
+sec = Nuevo cSecuencia([49,SUMA,50,0,0])
 
 'Obtener primer car$E1cter
 obtenerCar$E1cter()
