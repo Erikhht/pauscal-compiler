@@ -95,6 +95,35 @@ Proc coincide(x:Byte)
     FinSi
 FinProc
 
+Proc coincideConElemMatriz(x[]:Byte):Booleano
+'Verificar si conicide alg$FAn elemento de la matriz
+'con VER
+Var i:Entero
+Var caracEncontrado:Booleano
+Var caracBuscados:Cadena
+caracEncontrado = Falso
+caracBuscados = ""
+
+Contar i = 0 A LongMat(x)-1
+    Si VER = x[i] Entonces
+        caracEncontrado = Verd
+        Salir Contar
+    SiNo
+        caracEncontrado = Falso
+    FinSi
+    caracBuscados = caracBuscados + Carac(x[i])
+Seguir
+
+'Si Not(caracEncontrado) Entonces esperaba( "'" + caracBuscados + "'" )
+
+Resultado = caracEncontrado
+
+FinProc
+
+Proc coincideConOperador(operadores:Cadena):Booleano
+Resultado = coincideConElemMatriz(MatrizByteDeCadena(operadores))
+FinProc
+
 Proc esAlfa(car:Byte):Booleano
 'Verificar si es una letra
     Resultado = estaEn(carMay(car),A_Z_65_90)
@@ -156,15 +185,17 @@ FinProc
 Proc Expresi$F3n()
 'Leer y traducir expresi$F3n
     t$E9rmino()
-    emitirLn("MOVE D0,D1")
-    Seleccionar VER
-        Caso SUMA
-	         adici$F3n()
-        Caso RESTA
-	         sustracci$F3n()
-        Caso Otro
-            esperaba("Operaci$F3n de adici$F3n")
-    FinSeleccionar
+    Mientras coincideConOperador("+-")
+        emitirLn("MOVE D0,D1")
+        Seleccionar VER
+            Caso SUMA
+	             adici$F3n()
+            Caso RESTA
+	             sustracci$F3n()
+            Caso Otro
+                esperaba("Operaci$F3n de adici$F3n")
+        FinSeleccionar
+    FinMientras
 FinProc
 
 Proc Inicializar
