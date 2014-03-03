@@ -20,7 +20,7 @@ Var a_z_97_122[]:Byte
 Var d$EDgitos_48_57[]:Byte
 
 'Clase para manejo de secuencia de caracteres
-Var sec:cSecuencia
+Var sec:cSecuenciaDeCadena
 
 'Variable para mostrar mensajes de Salida
 Var Salida:Cadena
@@ -174,7 +174,7 @@ a_z_97_122 = [97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,1
 d$EDgitos_48_57 = [48,49,50,51,52,53,54,55,56,57]
 
 'Cargar programa
-sec = Nuevo cSecuencia([49,SUMA,50,0,0])
+sec = Nuevo cSecuenciaDeCadena("1+2")
 
 'Obtener primer car$E1cter
 obtenerCar$E1cter()
